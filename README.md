@@ -33,8 +33,9 @@ WIP
 
 ## Contributors
 
-Marcus Orciuch - Frontend 
-Jacob Bennette - Backend
+- Marcus Orciuch: Frontend, Documentation
+- Jacob Bennette: Backend, Documentation
+
 WIP
 
 ## Attributions
