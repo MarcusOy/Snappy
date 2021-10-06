@@ -3,7 +3,7 @@
 Snappy is a very simple E2EE implementation example as a final project for CNIT370.
 
 ## About
-Snappy is made of two projects, an API server and an electron desktop app. An SQL server is used to store all data. For more implementation details, visit [this document](.docs/Overview.md).
+Snappy is made of two projects, an API server and an electron desktop app. An SQL server is used to store all data. For more implementation details, visit [this document](./docs/Overview.md).
 
 ## Requirements
 Make sure to have the following
