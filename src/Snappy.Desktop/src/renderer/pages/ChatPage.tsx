@@ -1,11 +1,15 @@
 import React from "react";
-import { Avatar, AvatarBadge, Box, Stack, Textarea } from "@chakra-ui/react";
+import {
+  Avatar,
+  AvatarBadge,
+  Box,
+  Heading,
+  Stack,
+  Textarea,
+} from "@chakra-ui/react";
+import ChatContact, { IChatContact } from "../components/ChatContact";
 
-const contacts: {
-  name: string;
-  status: "online" | "offline" | "away" | "doNotDisturb";
-  lastMessage: string;
-}[] = [
+const contacts: IChatContact[] = [
   {
     name: "Marcus Orciuch",
     status: "online",
@@ -22,12 +26,12 @@ const contacts: {
     lastMessage: "K",
   },
   {
-    name: "Marcus Orciuch",
+    name: "Kyle Orciuch",
     status: "doNotDisturb",
     lastMessage: "Hey, what's up?",
   },
   {
-    name: "Marcus Orciuch",
+    name: "Patrick Mansour",
     status: "online",
     lastMessage: "Hey, what's up?",
   },
@@ -35,47 +39,24 @@ const contacts: {
 
 const ChatPage = () => {
   return (
-    <Stack direction="row">
-      <Stack>
-        {contacts.map((c, i) => {
-          return (
-            <Box
-              key="i"
-              maxW="sm"
-              borderWidth="1px"
-              borderRadius="lg"
-              overflow="hidden"
-            >
-              <Box p="3">
-                <Box display="flex" alignItems="center">
-                  <Avatar name={c.name} size="sm">
-                    <AvatarBadge boxSize="1em" bg="green.500" />
-                  </Avatar>
-                  <Box ml="2" flexDirection="column">
-                    <Box
-                      mt="1"
-                      fontWeight="semibold"
-                      as="h4"
-                      lineHeight="tight"
-                      isTruncated
-                    >
-                      {c.name}
-                    </Box>
-
-                    <Box as="span" color="gray.600" fontSize="sm">
-                      {c.lastMessage}
-                    </Box>
-                  </Box>
-                </Box>
-              </Box>
-            </Box>
-          );
-        })}
+    <div>
+      <Box p="2" bg="gray.50" borderWidth="1px" borderBottomRadius="lg">
+        <Heading size="md">Snappy</Heading>
+      </Box>
+      <Stack direction="row">
+        <Stack bg="gray.50" borderRightWidth="1px">
+          {contacts.map((c, i) => (
+            <ChatContact key={i} {...c} />
+          ))}
+        </Stack>
+        <Stack p="1" direction="column" justifyContent="flex-end" flexGrow={1}>
+          <Textarea
+            placeholder="Write your next message here..."
+            resize="none"
+          />
+        </Stack>
       </Stack>
-      <Stack direction="column">
-        <Textarea placeholder="Write your next message here..." resize="none" />
-      </Stack>
-    </Stack>
+    </div>
   );
 };
 
