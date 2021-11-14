@@ -1,0 +1,8 @@
+{
+  "name": "snappy",
+  "version": "1.0.0",
+  "description": "Snappy is a very simple E2EE implementation example as a final project for CNIT370.",
+  "scripts": {
+    "desktop": "cd src/Snappy.Desktop && yarn start"
+  }
+}

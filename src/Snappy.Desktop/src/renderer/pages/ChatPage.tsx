@@ -1,53 +1,30 @@
 import React from "react";
-import {
-  Avatar,
-  AvatarBadge,
-  Box,
-  Heading,
-  Stack,
-  Textarea,
-} from "@chakra-ui/react";
-import ChatContact, { IChatContact } from "../components/ChatContact";
-
-const contacts: IChatContact[] = [
-  {
-    name: "Marcus Orciuch",
-    status: "online",
-    lastMessage: "Hey, what's up?",
-  },
-  {
-    name: "Someone cute",
-    status: "offline",
-    lastMessage: "Go out with me please.",
-  },
-  {
-    name: "Annoying person",
-    status: "away",
-    lastMessage: "K",
-  },
-  {
-    name: "Kyle Orciuch",
-    status: "doNotDisturb",
-    lastMessage: "Hey, what's up?",
-  },
-  {
-    name: "Patrick Mansour",
-    status: "online",
-    lastMessage: "Hey, what's up?",
-  },
-];
+import { Avatar, AvatarBadge, Box, Stack, Textarea } from "@chakra-ui/react";
+import ChatContact from "../components/ChatContact";
+import Header from "../components/Header";
+import CurrentUser from "../components/CurrentUser";
+import { SnappyStore } from "../data/DataStore";
 
 const ChatPage = () => {
+  const s = SnappyStore.useState();
+  console.log(s);
+
   return (
-    <div>
-      <Box p="2" bg="gray.50" borderWidth="1px" borderBottomRadius="lg">
-        <Heading size="md">Snappy</Heading>
-      </Box>
-      <Stack direction="row">
-        <Stack bg="gray.50" borderRightWidth="1px">
-          {contacts.map((c, i) => (
-            <ChatContact key={i} {...c} />
-          ))}
+    <Stack spacing={0}>
+      <Header />
+      <Stack flexGrow={1} direction="row">
+        <Stack
+          display={["none", "flex"]}
+          w="16rem"
+          height="100%"
+          bg="gray.50"
+          borderRightWidth="1px"
+          overflowY="scroll"
+        >
+          {s.contacts &&
+            s.contacts.map((c, i) => <ChatContact key={i} {...c} />)}
+          <Box flexGrow={1} />
+          <CurrentUser />
         </Stack>
         <Stack p="1" direction="column" justifyContent="flex-end" flexGrow={1}>
           <Textarea
@@ -56,7 +33,7 @@ const ChatPage = () => {
           />
         </Stack>
       </Stack>
-    </div>
+    </Stack>
   );
 };
 

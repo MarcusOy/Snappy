@@ -1,24 +1,33 @@
 import React from "react";
 import { Avatar, AvatarBadge, Box, Stack, Textarea } from "@chakra-ui/react";
+import { SnappyStore } from "../data/DataStore";
+import ContactService from "../data/ContactService";
 
 export interface IChatContact {
+  id: string;
   name: string;
   status: "online" | "offline" | "away" | "doNotDisturb";
   lastMessage: string;
 }
 
 const ChatContact = (c: IChatContact) => {
+  const { selectedContact } = SnappyStore.useState();
+  const isSelected = selectedContact == c.id;
+
   return (
     <Box
+      userSelect="none"
       cursor="pointer"
       _hover={{
         backgroundColor: "gray.200",
       }}
       key="i"
-      maxW="sm"
+      w="64"
+      h="20"
       borderBottomWidth="1px"
       overflow="hidden"
-      bg={c.name == "Marcus Orciuch" ? "gray.300" : undefined}
+      bg={isSelected ? "gray.300" : undefined}
+      onClick={() => ContactService.switchToContact(c.id)}
     >
       <Box p="3">
         <Box display="flex" alignItems="center">
@@ -36,7 +45,14 @@ const ChatContact = (c: IChatContact) => {
               }
             />
           </Avatar>
-          <Box ml="2" flexDirection="column">
+          <Box
+            ml="2"
+            flexDirection="column"
+            overflow="hidden"
+            whiteSpace="nowrap"
+            textOverflow="ellipsis"
+            w="64"
+          >
             <Box
               mt="1"
               fontWeight="semibold"

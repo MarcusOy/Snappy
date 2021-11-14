@@ -4,6 +4,7 @@ import * as ReactDOM from "react-dom";
 import ChatPage from "./pages/ChatPage";
 
 import "./App.css";
+import { SnappyStore } from "./data/DataStore";
 
 ReactDOM.render(
   <ChakraProvider>
