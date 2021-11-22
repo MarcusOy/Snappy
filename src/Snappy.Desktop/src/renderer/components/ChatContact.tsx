@@ -7,7 +7,7 @@ export interface IChatContact {
   id: string;
   name: string;
   status: "online" | "offline" | "away" | "doNotDisturb";
-  lastMessage: string;
+  lastMessage?: string;
 }
 
 const ChatContact = (c: IChatContact) => {
