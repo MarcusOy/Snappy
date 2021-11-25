@@ -1,14 +1,8 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import React from "react";
 import * as ReactDOM from "react-dom";
-import ChatPage from "./pages/ChatPage";
+import Main from "./Main";
 
 import "./App.css";
-import { SnappyStore } from "./data/DataStore";
 
-ReactDOM.render(
-  <ChakraProvider>
-    <ChatPage />
-  </ChakraProvider>,
-  document.getElementById("root")
-);
+ReactDOM.render(<Main />, document.getElementById("root"));

@@ -46,6 +46,7 @@
         [
           "@electron-forge/plugin-webpack",
           {
+            "devContentSecurityPolicy": "default-src * self blob: data: gap:; style-src * self 'unsafe-inline' blob: data: gap:; script-src * 'self' 'unsafe-eval' 'unsafe-inline' blob: data: gap:; object-src * 'self' blob: data: gap:; img-src * self 'unsafe-inline' blob: data: gap:; connect-src self * 'unsafe-inline' blob: data: gap:; frame-src * self blob: data: gap:;",
             "mainConfig": "./webpack.main.config.js",
             "renderer": {
               "config": "./webpack.renderer.config.js",
@@ -85,10 +86,13 @@
     "@emotion/styled": "^11",
     "@types/react": "^17.0.27",
     "@types/react-dom": "^17.0.9",
+    "axios": "^0.24.0",
+    "axios-hooks": "^3.0.0",
     "electron-squirrel-startup": "^1.0.0",
     "framer-motion": "^4",
     "pullstate": "^1.23.0",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "react-hook-form": "^7.20.2"
   }
 }

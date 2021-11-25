@@ -43,6 +43,9 @@ INSTALLED_APPS = [
 
     # Local Apps (Your project's apps)
     'core',
+
+    # Used to change CORS
+    'corsheaders',
 ]
 
 REST_FRAMEWORK = {
@@ -52,6 +55,7 @@ REST_FRAMEWORK = {
 }
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -141,3 +145,5 @@ AUTH_USER_MODEL = 'core.USER'
 SIMPLE_JWT = {
     'USER_ID_FIELD': 'user_name',
 }
+
+CORS_ALLOW_ALL_ORIGINS = True

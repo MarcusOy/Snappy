@@ -19,8 +19,8 @@ export interface IMessage {
 }
 
 const Message = (m: IMessage) => {
-  const { id } = SnappyStore.useState((s) => s.self);
-  const isFromYou = m.senderId == id;
+  const self = SnappyStore.useState((s) => s.identity.contact);
+  const isFromYou = m.senderId == self?.id;
 
   return (
     <Tooltip label={m.cipherText} placement="top">
