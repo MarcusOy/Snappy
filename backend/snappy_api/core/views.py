@@ -77,7 +77,7 @@ class Messages(APIView):
                 response[index]["messages"].append(message_dict)
             #response[index]["messages"] = [message_ID, encrypted_message, for MESSAGE.objects.filter(chat_ID=chats.chat_ID)]
 
-        return JsonResponse(response)
+        return JsonResponse({"response":response})
 
     # allows user to "send" message as themselves to any other user
     def post(self, request):
