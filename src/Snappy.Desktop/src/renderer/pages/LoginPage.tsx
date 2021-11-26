@@ -4,16 +4,19 @@ import {
   AlertDescription,
   AlertIcon,
   AlertTitle,
+  Avatar,
   Box,
   Button,
-  CloseButton,
   Heading,
+  HStack,
   Stack,
+  Text,
 } from "@chakra-ui/react";
 import Form from "../components/Form";
 import FormTextBox from "../components/FormTextBox";
 import useAxios from "axios-hooks";
 import IdentityService from "../data/IdentityService";
+import LoginIdentity from "../components/LoginIdentity";
 
 interface FormFields {
   identity: string;
@@ -23,7 +26,7 @@ interface FormFields {
 }
 
 const LoginPage = () => {
-  const [{ data, loading, error }, doLogin] = useAxios({}, { manual: true });
+  const [{ loading, error }, doLogin] = useAxios({}, { manual: true });
   const onSubmit = (data: FormFields) => {
     let [username, server] = data.identity.split("@");
 
@@ -36,7 +39,12 @@ const LoginPage = () => {
       },
     })
       .then((r) => {
-        IdentityService.authenticate(r.data.access, r.data.refresh);
+        IdentityService.authenticate(
+          username,
+          server,
+          r.data.access,
+          r.data.refresh
+        );
       })
       .catch((e) => {
         console.log(e);
@@ -44,17 +52,66 @@ const LoginPage = () => {
   };
   const onError = (errors: any, e: any) => {};
 
+  const storedIdentities = [
+    {
+      username: "marcus",
+      server: "snappy.app",
+    },
+    {
+      username: "kyle",
+      server: "snappy.app",
+    },
+    {
+      username: "test",
+      server: "localhost:8000",
+    },
+    {
+      username: "marcus",
+      server: "snappy.app",
+    },
+    {
+      username: "kyle",
+      server: "snappy.app",
+    },
+    {
+      username: "test",
+      server: "localhost:8000",
+    },
+    {
+      username: "marcus",
+      server: "snappy.app",
+    },
+    {
+      username: "kyle",
+      server: "snappy.app",
+    },
+    {
+      username: "test",
+      server: "localhost:8000",
+    },
+  ];
+
   return (
-    <Stack alignItems="center" justifyContent="center">
+    <Stack className="login-bg" alignItems="center" justifyContent="center">
       <Box
         p="5"
         w={["100%", "lg"]}
+        bg="white"
         borderWidth="1px"
         borderRadius="lg"
         overflow="hidden"
+        boxShadow="rgba(100, 100, 111, 0.2) 0px 7px 29px 0px"
       >
-        <Stack spacing="5">
-          <Heading size="md">Login to Snappy</Heading>
+        <Stack spacing="2">
+          <Heading size="md">Login to Snappy Server</Heading>
+          <Text color="gray.700" fontSize="sm">
+            Quickly use a stored identity
+          </Text>
+          <HStack overflowX="scroll">
+            {storedIdentities.map((i) => (
+              <LoginIdentity {...i} />
+            ))}
+          </HStack>
           {error && (
             <Alert status="error">
               <AlertIcon />
@@ -62,6 +119,10 @@ const LoginPage = () => {
               <AlertDescription>{error.message}</AlertDescription>
             </Alert>
           )}
+          <Text color="gray.700" fontSize="sm">
+            or login with a new identity
+          </Text>
+
           <Form onFormSubmit={onSubmit} onFormError={onError}>
             <Stack spacing="2">
               <FormTextBox

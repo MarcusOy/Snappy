@@ -4,6 +4,7 @@ import {
   AvatarBadge,
   Box,
   Button,
+  HStack,
   IconButton,
   Modal,
   ModalBody,
@@ -12,16 +13,15 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  Stack,
   Tab,
   TabList,
   TabPanel,
   TabPanels,
   Tabs,
-  Textarea,
   useDisclosure,
 } from "@chakra-ui/react";
 import { SettingsIcon } from "@chakra-ui/icons";
+import LogoutButton from "./LogoutButton";
 
 const CurrentUser = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -83,7 +83,10 @@ const CurrentUser = () => {
             </Tabs>
           </ModalBody>
           <ModalFooter>
-            <Button onClick={onClose}>Close</Button>
+            <HStack spacing="2">
+              <LogoutButton />
+              <Button onClick={onClose}>Close</Button>
+            </HStack>
           </ModalFooter>
         </ModalContent>
       </Modal>

@@ -2,6 +2,7 @@ import { Store } from "pullstate";
 import { IChatContact } from "../components/ChatContact";
 
 export interface ISnappyStore {
+  currentServer?: string;
   identity: IUserIdentity;
   contacts: IChatContact[];
   selectedContact: string;
@@ -104,6 +105,7 @@ export const sampleContacts: IChatContact[] = [
 ];
 
 const initialState: ISnappyStore = {
+  currentServer: undefined,
   identity: {},
   contacts: sampleContacts,
   selectedContact: "f",

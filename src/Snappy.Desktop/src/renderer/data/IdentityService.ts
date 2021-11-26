@@ -1,7 +1,14 @@
 import { SnappyStore } from "./DataStore";
 class IdentityService {
-  static authenticate(access: string, refresh: string) {
+  static authenticate(
+    username: string,
+    server: string,
+    access: string,
+    refresh: string
+  ) {
     SnappyStore.update((s) => {
+      s.currentServer = server;
+      s.identity.username = username;
       s.identity.accessKey = access;
       s.identity.refreshKey = refresh;
     });
