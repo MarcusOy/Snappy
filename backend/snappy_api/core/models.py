@@ -213,6 +213,7 @@ class MESSAGE(models.Model):
         on_delete = models.CASCADE
     )
     encrypted_message = models.TextField(null = False)
+    sender_copy = models.TextField(null = False)
 
     class Meta:
         unique_together = (("message_ID", "chat_ID"),)
