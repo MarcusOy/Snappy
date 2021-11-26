@@ -64,12 +64,17 @@ class Messages(APIView):
                 }
             )
             for message in MESSAGE.objects.filter(chat_ID=chat["chat_ID"]).values():
-                response[index]["messages"].append(
-                    {
-                        "message_ID": message["message_ID"],
-                        "encrypted_message": message["encrypted_message"]
-                    }
-                )
+                message_dict = {}
+                message_dict["message_ID"] = message["message_ID"]
+                if chat["sender_id"] == user_name:
+                    message_dict["encrypted_message"] = message["sender_copy"]
+                else:
+                    message_dict["encrypted_message"] = message["encrypted_message"]
+
+                # "message_ID": message["message_ID"],
+                # "encrypted_message": message["encrypted_message"]
+                # }
+                response[index]["messages"].append(message_dict)
             #response[index]["messages"] = [message_ID, encrypted_message, for MESSAGE.objects.filter(chat_ID=chats.chat_ID)]
 
         return JsonResponse(response)
@@ -95,7 +100,11 @@ class Messages(APIView):
             chat = CHAT(sender=sender, reciever=reciever)
             chat.save()
 
-        message = MESSAGE(chat_ID=chat, encrypted_message=raw_message["encrypted_message"])
+        message = MESSAGE(
+            chat_ID=chat, 
+            encrypted_message=raw_message["encrypted_message"],
+            sender_copy=raw_message["sender_copy"]
+        )
         message.save()
         #user_name_request = API_auth.get_user(self, validated_token = request)
         #database_user = MESSAGE(user_name = user_name_request).objects
