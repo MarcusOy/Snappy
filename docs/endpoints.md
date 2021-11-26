@@ -23,9 +23,9 @@ This endpoint will add a user directly to the database. The fields of the databa
 | **Content-Type**: | `application/json` |
 | **Authorization Required**: | A valid access token is needed|
 | **Description**: | Used to "send" a message (or more literally, add a message to the database) |
-| **Arguments**: | `recipient`: *Username of the recipient*,<br />`encrypted_message`: *The encrypted message (can include additional information in any format, but it must be encrypted* |
+| **Arguments**: | `recipient`: *Username of the recipient*,<br />`encrypted_message`: *The encrypted message (can include additional information in any format, but it must be encrypted* <br /> `sender_copy`: *The same message but encrypted with the sender's public key* |
 | **Argument Requirements**: | `user_name`: *must exist*,<br />`public_key`: *must be encrypted with the recipient's public key (the api doesn't check for this!)* |
-| **Example**: | `curl -X POST -d '{"message":{"recipient":"benne238", "encrypted_message":"no!!!!"}}' -H "Content-Type: application/json" -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjM3MzEyMTc2LCJpYXQiOjE2MzczMTE4NzYsImp0aSI6IjA3Y2YxNmU3NGVhMTQxNmViYjM1NDUxZTE5MjVhN2ZmIiwidXNlcl9pZCI6Imdlb3JnZSJ9.4kWQxa5iwT9KU2ThFWw1pUiQkIKKWZPRn0jsRFJM6b0' http://127.0.0.1:8000/api/messages/` |
+| **Example**: | `curl -X POST -d '{"message":{"recipient":"benne238", "encrypted_message":"no!!!!", "sender_copy":"no!!!!"}}' -H "Content-Type: application/json" -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjM3MzEyMTc2LCJpYXQiOjE2MzczMTE4NzYsImp0aSI6IjA3Y2YxNmU3NGVhMTQxNmViYjM1NDUxZTE5MjVhN2ZmIiwidXNlcl9pZCI6Imdlb3JnZSJ9.4kWQxa5iwT9KU2ThFWw1pUiQkIKKWZPRn0jsRFJM6b0' http://127.0.0.1:8000/api/messages/` |
 | **Return on Success**: | `{"success": True}`|
 
 When using a post request with the `/api/messages` endpoint, it is the equivalent of sending a message or adding a message to the database. A valid access token is required to be present in the header of the request, otherwise the api will refuse to honor the request and the message will not be sent
