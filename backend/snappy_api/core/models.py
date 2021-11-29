@@ -208,3 +208,5 @@ class MESSAGE(models.Model):
     sender_copy = models.TextField(null = False)
     date_time = models.DateTimeField(null = False)
 
+    class Meta:
+        ordering = ['-date_time']
