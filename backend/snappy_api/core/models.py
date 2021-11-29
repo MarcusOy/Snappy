@@ -206,4 +206,5 @@ class MESSAGE(models.Model):
     )
     encrypted_message = models.TextField(null = False)
     sender_copy = models.TextField(null = False)
+    date_time = models.DateTimeField(null = False)
 
