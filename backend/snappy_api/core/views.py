@@ -1,3 +1,4 @@
+from datetime import datetime
 from json.encoder import JSONEncoder
 from django.http.response import JsonResponse
 import rest_framework
@@ -59,6 +60,7 @@ class Messages(APIView):
                     "message_id": message["message_id"],
                     "sender": str(message["sender_id"]),
                     "recipient": str(message["reciever_id"]),
+                    "date_time": str(message["date_time"])
             }
 
             if message["sender_id"] == user_name:
@@ -88,7 +90,8 @@ class Messages(APIView):
             sender=sender, 
             reciever=reciever,
             encrypted_message=raw_message["encrypted_message"],
-            sender_copy=raw_message["sender_copy"]
+            sender_copy=raw_message["sender_copy"],
+            date_time = datetime.now()
         )
         message.save()
 
