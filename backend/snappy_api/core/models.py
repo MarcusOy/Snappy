@@ -193,8 +193,8 @@ class USER(AbstractBaseUser, PermissionsMixin):
 #        max_length = 64
 #    )
 
-class CHAT(models.Model):
-    chat_ID = models.AutoField(primary_key = True)
+class MESSAGE(models.Model):
+    message_id = models.AutoField(primary_key = True)
     sender = models.ForeignKey(
         USER, 
         on_delete = models.CASCADE,
@@ -204,17 +204,6 @@ class CHAT(models.Model):
         on_delete = models.CASCADE,
         related_name = "reciever"
     )
-
-class MESSAGE(models.Model):
-    message_ID = models.AutoField(primary_key = True)
-    chat_ID = models.ForeignKey(
-        CHAT,
-        null = False,
-        on_delete = models.CASCADE
-    )
     encrypted_message = models.TextField(null = False)
     sender_copy = models.TextField(null = False)
 
-    class Meta:
-        unique_together = (("message_ID", "chat_ID"),)
-# Create your models here.
