@@ -1,3 +1,4 @@
+from datetime import datetime
 from json.encoder import JSONEncoder
 from django.http.response import JsonResponse
 import rest_framework
@@ -7,7 +8,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 import rest_framework_simplejwt
 from rest_framework_simplejwt.authentication import JWTAuthentication as API_auth
-from core.models import MESSAGE, CHAT, USER
+from core.models import MESSAGE, USER
 from core.serializers import RegistrationSerializer
 from rest_framework import serializers, status
 from rest_framework.permissions import IsAuthenticated
@@ -53,26 +54,22 @@ class Messages(APIView):
 
         response = []
         #content = MESSAGE.objects.all()
-        chats = CHAT.objects.filter(sender=user_name).values() | CHAT.objects.filter(reciever=user_name).values()
-        for index, chat in enumerate(chats):
-            response.append(
-                {
-                    "chat_ID": chat["chat_ID"],
-                    "sender": str(chat["sender_id"]),
-                    "recipient": str(chat["reciever_id"]),
-                    "messages" : []
-                }
-            )
-            for message in MESSAGE.objects.filter(chat_ID=chat["chat_ID"]).values():
-                response[index]["messages"].append(
-                    {
-                        "message_ID": message["message_ID"],
-                        "encrypted_message": message["encrypted_message"]
-                    }
-                )
-            #response[index]["messages"] = [message_ID, encrypted_message, for MESSAGE.objects.filter(chat_ID=chats.chat_ID)]
+        messages = MESSAGE.objects.filter(sender=user_name).values() | MESSAGE.objects.filter(reciever=user_name).values()
+        for message in messages:
+            message_dict = {
+                    "message_id": message["message_id"],
+                    "sender": str(message["sender_id"]),
+                    "recipient": str(message["reciever_id"]),
+                    "date_time": str(message["date_time"])
+            }
 
-        return JsonResponse(response)
+            if message["sender_id"] == user_name:
+                message_dict["encrypted_message"] = message["sender_copy"]
+            else:
+                message_dict["encrypted_message"] = message["encrypted_message"]
+            response.append(message_dict)
+
+        return JsonResponse({"response":response})
 
     # allows user to "send" message as themselves to any other user
     def post(self, request):
@@ -86,17 +83,18 @@ class Messages(APIView):
         elif not USER.objects.filter(user_name=raw_message["recipient"]):
             return JsonResponse({"Error": f"Recipient \"{raw_message['recipient']}\" doesn't exist"})
 
-        try:
-            chat = CHAT.objects.get(sender=user_name, reciever=raw_message["recipient"])
-
-        except:
-            sender = USER.objects.get(user_name=user_name)
-            reciever = USER.objects.get(user_name=raw_message["recipient"])
-            chat = CHAT(sender=sender, reciever=reciever)
-            chat.save()
-
-        message = MESSAGE(chat_ID=chat, encrypted_message=raw_message["encrypted_message"])
+        
+        sender = USER.objects.get(user_name=user_name)
+        reciever = USER.objects.get(user_name=raw_message["recipient"])
+        message = MESSAGE(
+            sender=sender, 
+            reciever=reciever,
+            encrypted_message=raw_message["encrypted_message"],
+            sender_copy=raw_message["sender_copy"],
+            date_time = datetime.now()
+        )
         message.save()
+
         #user_name_request = API_auth.get_user(self, validated_token = request)
         #database_user = MESSAGE(user_name = user_name_request).objects
         return JsonResponse({"success": True})
