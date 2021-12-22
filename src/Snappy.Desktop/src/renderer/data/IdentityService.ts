@@ -1,4 +1,5 @@
 import { SnappyStore } from "./DataStore";
+import PersistenceService from "./PersistenceService";
 class IdentityService {
   static authenticate(
     username: string,
@@ -7,19 +8,25 @@ class IdentityService {
     refresh: string
   ) {
     SnappyStore.update((s) => {
-      s.currentServer = server;
       s.identity.username = username;
+      s.identity.server = server;
       s.identity.accessKey = access;
       s.identity.refreshKey = refresh;
     });
+    this.storeIdentity();
   }
 
   static logOut() {
     SnappyStore.update((s) => {
       s.identity.accessKey = undefined;
       s.identity.refreshKey = undefined;
-      s.identity.contact = undefined;
     });
+    this.storeIdentity();
+  }
+
+  static storeIdentity() {
+    const i = SnappyStore.getRawState().identity;
+    PersistenceService.setSecured("identity", JSON.stringify(i));
   }
 }
 

@@ -4,7 +4,6 @@ import {
   AlertDescription,
   AlertIcon,
   AlertTitle,
-  Avatar,
   Box,
   Button,
   Heading,
@@ -108,8 +107,8 @@ const LoginPage = () => {
             Quickly use a stored identity
           </Text>
           <HStack overflowX="scroll">
-            {storedIdentities.map((i) => (
-              <LoginIdentity {...i} />
+            {storedIdentities.map((i, index) => (
+              <LoginIdentity key={index} {...i} />
             ))}
           </HStack>
           {error && (

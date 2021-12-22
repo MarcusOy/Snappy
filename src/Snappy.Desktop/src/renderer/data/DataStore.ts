@@ -1,8 +1,8 @@
 import { Store } from "pullstate";
 import { IChatContact } from "../components/ChatContact";
+import { IMessage } from "../components/Message";
 
 export interface ISnappyStore {
-  currentServer?: string;
   identity: IUserIdentity;
   contacts: IChatContact[];
   selectedContact: string;
@@ -10,16 +10,11 @@ export interface ISnappyStore {
 
 export interface IUserIdentity {
   username?: string;
+  server?: string;
   accessKey?: string;
   refreshKey?: string;
-  contact?: IChatContact;
+  messages?: IMessage;
 }
-
-// const sampleYou: IChatContact = {
-//   id: "you",
-//   name: "Marcus Orciuch",
-//   status: "online",
-// };
 
 export const sampleContacts: IChatContact[] = [
   {
@@ -50,62 +45,11 @@ export const sampleContacts: IChatContact[] = [
     id: "f",
     name: "Patrick Mansour",
     status: "online",
-    lastMessage: "Hey, what's up?",
+    lastMessage: "This is a message sent by the other person to you.",
   },
-  // {
-  //   name: "Marcus Orciuch",
-  //   status: "online",
-  //   lastMessage: "Hey, what's up?",
-  // },
-  // {
-  //   name: "Someone cute",
-  //   status: "offline",
-  //   lastMessage: "Go out with me pleasepleasepleasepleasepleaseplease.",
-  // },
-  // {
-  //   name: "Annoying person",
-  //   status: "away",
-  //   lastMessage: "K",
-  // },
-  // {
-  //   name: "Kyle Orciuch",
-  //   status: "doNotDisturb",
-  //   lastMessage: "Hey, what's up?",
-  // },
-  // {
-  //   name: "Patrick Mansour",
-  //   status: "online",
-  //   lastMessage: "Hey, what's up?",
-  // },
-  // {
-  //   name: "Marcus Orciuch",
-  //   status: "online",
-  //   lastMessage: "Hey, what's up?",
-  // },
-  // {
-  //   name: "Someone cute",
-  //   status: "offline",
-  //   lastMessage: "Go out with me pleasepleasepleasepleasepleaseplease.",
-  // },
-  // {
-  //   name: "Annoying person",
-  //   status: "away",
-  //   lastMessage: "K",
-  // },
-  // {
-  //   name: "Kyle Orciuch",
-  //   status: "doNotDisturb",
-  //   lastMessage: "Hey, what's up?",
-  // },
-  // {
-  //   name: "Patrick Mansour",
-  //   status: "online",
-  //   lastMessage: "Hey, what's up?",
-  // },
 ];
 
 const initialState: ISnappyStore = {
-  currentServer: undefined,
   identity: {},
   contacts: sampleContacts,
   selectedContact: "f",
