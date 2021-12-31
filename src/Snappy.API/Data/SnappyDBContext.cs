@@ -18,6 +18,14 @@ public class SnappyDBContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
+        builder.Entity<User>()
+            .HasMany(u => u.MessagesSent)
+            .WithOne(m => m.Sender)
+            .HasForeignKey(m => m.SenderId);
+        builder.Entity<User>()
+            .HasMany(u => u.MessagesReceived)
+            .WithOne(m => m.Receiver)
+            .HasForeignKey(m => m.ReceiverId);
         // Ensure seed data
         builder.HasSeedData();
     }

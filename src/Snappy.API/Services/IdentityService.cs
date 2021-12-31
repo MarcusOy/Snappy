@@ -115,7 +115,7 @@ namespace Snappy.API.Services
             if (_settings.Security.IsTotpEnabled)
             {
                 if (code is null || code == String.Empty)
-                    throw new AuthenticationException("Please verify your login by providing a two factor code. (2FA_CHALLENGE)");
+                    throw new AuthenticationException("Please verify your login by providing a two factor code. |2FA_CHALLENGE|");
 
                 if (!await _twoFactorService.ResolveChallengeAsync(u, code))
                     throw new AuthenticationException("Invalid two factor code.");

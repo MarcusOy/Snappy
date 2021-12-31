@@ -11,7 +11,7 @@ using Snappy.API.Data;
 namespace Snappy.API.Migrations
 {
     [DbContext(typeof(SnappyDBContext))]
-    [Migration("20211227210455_Initial")]
+    [Migration("20211230192225_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -111,74 +111,74 @@ namespace Snappy.API.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("f6c755f3-51e7-48dd-9b3a-c173b618bab4"),
-                            CreatedOn = new DateTime(2021, 12, 27, 21, 4, 55, 304, DateTimeKind.Utc).AddTicks(5290),
+                            Id = new Guid("bbe988ee-d420-4085-8cb8-92046bf8733a"),
+                            CreatedOn = new DateTime(2021, 12, 30, 19, 22, 25, 239, DateTimeKind.Utc).AddTicks(340),
                             MessageKey = "messageKey",
                             MessagePayload = "Hi kyle, how are you doing?",
-                            ReceiverId = new Guid("ad194377-d21e-46ec-a142-80a8e4236cf7"),
+                            ReceiverId = new Guid("38d82377-b3d6-4145-b273-c136e065f57e"),
                             SenderCopyKey = "senderKey",
                             SenderCopyPayload = "Hi kyle, how are you doing?",
-                            SenderId = new Guid("4f169ea5-e573-4507-a62a-b74e61b8352c"),
+                            SenderId = new Guid("63a43564-4c33-409d-a356-d75539368e98"),
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = new Guid("514a087c-2c5c-4273-852d-b9647cff6c88"),
-                            CreatedOn = new DateTime(2021, 12, 27, 21, 5, 55, 304, DateTimeKind.Utc).AddTicks(5300),
+                            Id = new Guid("741022a5-ab14-48ab-ad81-50b4eeaf8b82"),
+                            CreatedOn = new DateTime(2021, 12, 30, 19, 23, 25, 239, DateTimeKind.Utc).AddTicks(350),
                             MessageKey = "messageKey",
                             MessagePayload = "I am doing great! Hbu?",
-                            ReceiverId = new Guid("4f169ea5-e573-4507-a62a-b74e61b8352c"),
+                            ReceiverId = new Guid("63a43564-4c33-409d-a356-d75539368e98"),
                             SenderCopyKey = "senderKey",
                             SenderCopyPayload = "I am doing great! Hbu?",
-                            SenderId = new Guid("ad194377-d21e-46ec-a142-80a8e4236cf7"),
+                            SenderId = new Guid("38d82377-b3d6-4145-b273-c136e065f57e"),
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = new Guid("e4462d86-bf11-4ae6-b586-c5ad928664bc"),
-                            CreatedOn = new DateTime(2021, 12, 27, 21, 6, 55, 304, DateTimeKind.Utc).AddTicks(5310),
+                            Id = new Guid("18ee49f3-f3d9-4b72-8114-61b95b513135"),
+                            CreatedOn = new DateTime(2021, 12, 30, 19, 24, 25, 239, DateTimeKind.Utc).AddTicks(350),
                             MessageKey = "messageKey",
                             MessagePayload = "Great as well!",
-                            ReceiverId = new Guid("ad194377-d21e-46ec-a142-80a8e4236cf7"),
+                            ReceiverId = new Guid("38d82377-b3d6-4145-b273-c136e065f57e"),
                             SenderCopyKey = "senderKey",
                             SenderCopyPayload = "Great as well!",
-                            SenderId = new Guid("4f169ea5-e573-4507-a62a-b74e61b8352c"),
+                            SenderId = new Guid("63a43564-4c33-409d-a356-d75539368e98"),
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = new Guid("a68cd8b3-de5c-4687-b775-e4bffbd4d5a8"),
-                            CreatedOn = new DateTime(2021, 12, 27, 21, 5, 55, 304, DateTimeKind.Utc).AddTicks(5310),
+                            Id = new Guid("84f58382-cb2c-4d96-8670-fa3cd1232ce1"),
+                            CreatedOn = new DateTime(2021, 12, 30, 19, 23, 25, 239, DateTimeKind.Utc).AddTicks(360),
                             MessageKey = "messageKey",
                             MessagePayload = "Hi marcus, how are you doing?",
-                            ReceiverId = new Guid("4f169ea5-e573-4507-a62a-b74e61b8352c"),
+                            ReceiverId = new Guid("63a43564-4c33-409d-a356-d75539368e98"),
                             SenderCopyKey = "senderKey",
                             SenderCopyPayload = "Hi kyle, how are you doing?",
-                            SenderId = new Guid("3e1be469-2608-454d-8f86-7fa0e6242929"),
+                            SenderId = new Guid("70c6700f-f48d-4621-bc1e-b6b2d7429381"),
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = new Guid("19dabd46-f88e-4dbf-a692-59985487c8d5"),
-                            CreatedOn = new DateTime(2021, 12, 27, 21, 7, 55, 304, DateTimeKind.Utc).AddTicks(5310),
+                            Id = new Guid("fbf4a654-5822-4c14-a733-858072f26d99"),
+                            CreatedOn = new DateTime(2021, 12, 30, 19, 25, 25, 239, DateTimeKind.Utc).AddTicks(360),
                             MessageKey = "messageKey",
                             MessagePayload = "I am doing great! Hbu?",
-                            ReceiverId = new Guid("3e1be469-2608-454d-8f86-7fa0e6242929"),
+                            ReceiverId = new Guid("70c6700f-f48d-4621-bc1e-b6b2d7429381"),
                             SenderCopyKey = "senderKey",
                             SenderCopyPayload = "I am doing great! Hbu?",
-                            SenderId = new Guid("4f169ea5-e573-4507-a62a-b74e61b8352c"),
+                            SenderId = new Guid("63a43564-4c33-409d-a356-d75539368e98"),
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = new Guid("9f020a88-1a0c-497e-93b0-49f49e1c55c2"),
-                            CreatedOn = new DateTime(2021, 12, 27, 21, 9, 55, 304, DateTimeKind.Utc).AddTicks(5320),
+                            Id = new Guid("8d89a700-e7d8-4097-8cbd-20ae7277c222"),
+                            CreatedOn = new DateTime(2021, 12, 30, 19, 27, 25, 239, DateTimeKind.Utc).AddTicks(370),
                             MessageKey = "messageKey",
                             MessagePayload = "Great as well!",
-                            ReceiverId = new Guid("4f169ea5-e573-4507-a62a-b74e61b8352c"),
+                            ReceiverId = new Guid("63a43564-4c33-409d-a356-d75539368e98"),
                             SenderCopyKey = "senderKey",
                             SenderCopyPayload = "Great as well!",
-                            SenderId = new Guid("3e1be469-2608-454d-8f86-7fa0e6242929"),
+                            SenderId = new Guid("70c6700f-f48d-4621-bc1e-b6b2d7429381"),
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
@@ -232,43 +232,43 @@ namespace Snappy.API.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("4f169ea5-e573-4507-a62a-b74e61b8352c"),
+                            Id = new Guid("63a43564-4c33-409d-a356-d75539368e98"),
                             Active = true,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Marcus",
                             LastName = "Orciuch",
-                            Password = "LHy2L5PJ3CQKfPJInHesZDF3A46DzJ9kcIAdKh4LJps=",
+                            Password = "eLGL40Qg6iUeWes+myszBd2PffhxlUm/AabyPUU+bY0=",
                             PublicKey = "key",
-                            Salt = "sllNIW/h0hpFVYUCSANGIQ==",
-                            TwoFactorKey = "7NNMK5OAHEAWQRVNVH6LUNZEWUUEZZGZ",
+                            Salt = "HecjrZFEgdYjbRqnBUfXyg==",
+                            TwoFactorKey = "XV2XSYXNWLTN75I7RYYOPHWRCJE3AYDY",
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Username = "marcus"
                         },
                         new
                         {
-                            Id = new Guid("ad194377-d21e-46ec-a142-80a8e4236cf7"),
+                            Id = new Guid("38d82377-b3d6-4145-b273-c136e065f57e"),
                             Active = true,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Kyle",
                             LastName = "Orciuch",
-                            Password = "c1bCSyyfCBrncjHd21bR4yDB/t4gKTd+1Vxs76+bdOs=",
+                            Password = "pt5uYBTPlBOB0FPkdUADV+EXZa0NGVfpLLV1nz12QTY=",
                             PublicKey = "key",
-                            Salt = "JWYpy9YEzRpqVLYl6oVesw==",
-                            TwoFactorKey = "KC4OJ4AX6UGDRV7UISSWQ3GLCSTYHKIX",
+                            Salt = "f1TMfCrv5mqRvgesXJxZDA==",
+                            TwoFactorKey = "XBFPGKVHXGAC2AEHUOX6TW2VVCFT5WPZ",
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Username = "kyle"
                         },
                         new
                         {
-                            Id = new Guid("3e1be469-2608-454d-8f86-7fa0e6242929"),
+                            Id = new Guid("70c6700f-f48d-4621-bc1e-b6b2d7429381"),
                             Active = true,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Patrick",
                             LastName = "Mansour",
-                            Password = "5gPhSOtYNknJrdkL8CkXR+n4X1Cw8r8Eryut84Ugyn4=",
+                            Password = "8RDm00xtXA0fJn7bvhpyjoDftXQzlaWifReqNGg/Lak=",
                             PublicKey = "key",
-                            Salt = "yMQxyBY/bNL1STLI/6VTQA==",
-                            TwoFactorKey = "2DWYCISPHOCQHELY7VU25NE4VPDS5SQP",
+                            Salt = "l16coAX0dhAITQOhJcne3A==",
+                            TwoFactorKey = "OUB26D5PPSKOPW6RFRKM2MHTETI2WW76",
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Username = "patrick"
                         });
@@ -294,13 +294,13 @@ namespace Snappy.API.Migrations
             modelBuilder.Entity("Snappy.API.Models.Message", b =>
                 {
                     b.HasOne("Snappy.API.Models.User", "Receiver")
-                        .WithMany()
+                        .WithMany("MessagesReceived")
                         .HasForeignKey("ReceiverId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Snappy.API.Models.User", "Sender")
-                        .WithMany()
+                        .WithMany("MessagesSent")
                         .HasForeignKey("SenderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -312,6 +312,10 @@ namespace Snappy.API.Migrations
 
             modelBuilder.Entity("Snappy.API.Models.User", b =>
                 {
+                    b.Navigation("MessagesReceived");
+
+                    b.Navigation("MessagesSent");
+
                     b.Navigation("Tokens");
                 });
 #pragma warning restore 612, 618

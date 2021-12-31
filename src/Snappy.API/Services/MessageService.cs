@@ -1,4 +1,6 @@
 using System;
+using System.Linq;
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Snappy.API.Data;
@@ -54,15 +56,20 @@ namespace Snappy.API.Services
 
         public IQueryable<Message> GetConversations()
         {
-            var messages = _dbContext.Messages
-            .Include(m => m.Sender)
-            .Include(m => m.Receiver)
-            .Where(m => m.SenderId == _idService.CurrentUser.Id
-                        || m.ReceiverId == _idService.CurrentUser.Id)
-            .OrderByDescending(m => m.CreatedOn)
-            .ToList();
-
-            var groups = messages
+            var userId = new SqliteParameter("userId", _idService.CurrentUser.Id);
+            var convos = _dbContext.Messages
+                .FromSqlRaw(@"
+                SELECT *, MAX(CreatedOn),
+                    CASE
+                        WHEN SenderId = @userId THEN ReceiverId ELSE SenderId
+                    END AS OtherUserId
+                FROM Messages
+                WHERE SenderId = @userId OR ReceiverId = @userId
+                GROUP BY OtherUserId
+                ORDER BY CreatedOn DESC
+                ", userId)
+                .Include(m => m.Sender)
+                .Include(m => m.Receiver)
                 .Select(m => new Message
                 {
                     Id = m.Id,
@@ -74,15 +81,14 @@ namespace Snappy.API.Services
                     Sender = m.Sender,
                     ReceiverId = m.ReceiverId,
                     Receiver = m.Receiver,
+                    CreatedOn = m.CreatedOn,
+                    OtherUserId = m.SenderId == _idService.CurrentUser.Id
+                            ? m.ReceiverId : m.SenderId,
                     OtherUser = m.SenderId == _idService.CurrentUser.Id
-                        ? m.Receiver : m.Sender
-                })
-                .GroupBy(m => m.OtherUser);
+                            ? m.Receiver : m.Sender
+                });
 
-
-            // .OrderByDescending(g => g);
-
-            return _dbContext.Messages;
+            return convos;
         }
 
         public IQueryable<Message> GetConversation(Guid userId)
@@ -90,6 +96,8 @@ namespace Snappy.API.Services
             return _dbContext.Messages
                 .Where(m => m.SenderId == _idService.CurrentUser.Id && m.ReceiverId == userId
                          || m.ReceiverId == _idService.CurrentUser.Id && m.SenderId == userId)
+                .Include(m => m.Sender)
+                .Include(m => m.Receiver)
                 .OrderByDescending(m => m.CreatedOn);
         }
 
@@ -100,9 +108,11 @@ namespace Snappy.API.Services
 
             var toUser = _dbContext.Users
                 .FirstOrDefault(u => u.Id == toUserId);
-            if (toUser is null)
+            if (toUser is null || toUserId == _idService.CurrentUser.Id)
                 throw new InvalidOperationException("Invalid receipient user.");
 
+            message.SenderId = _idService.CurrentUser.Id;
+            message.ReceiverId = toUserId;
 
             await _dbContext.Messages.AddAsync(message);
             await _dbContext.SaveChangesAsync();

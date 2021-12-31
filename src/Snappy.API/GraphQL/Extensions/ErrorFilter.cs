@@ -15,13 +15,13 @@ namespace Snappy.API.GraphQL.Extensions
 
             // Adding extension codes
             var extensionDict = new Dictionary<string, object>();
-            var errorCodeExtract = message.Split('(', ')');
+            var errorCodeExtract = message.Split('|', '|');
             if (errorCodeExtract.Length > 1)
             {
                 var extensionCode = errorCodeExtract[1];
                 if (extensionCode is not null || extensionCode == string.Empty)
                 {
-                    message = message.Split('(', ')')[0];
+                    message = message.Split('|', '|')[0];
                     extensionDict.Add("code", extensionCode);
                 }
             }

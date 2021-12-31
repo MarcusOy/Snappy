@@ -22,5 +22,7 @@ public class Message : BaseEntity
     public Guid ReceiverId { get; set; }
     public User Receiver { get; set; }
     [NotMapped]
+    public Guid OtherUserId { get; set; }
+    [NotMapped]
     public User OtherUser { get; set; }
 }

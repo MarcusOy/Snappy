@@ -97,47 +97,47 @@ namespace Snappy.API.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Active", "CreatedOn", "DeletedOn", "FirstName", "LastName", "Password", "PublicKey", "Salt", "TwoFactorKey", "UpdatedOn", "Username" },
-                values: new object[] { new Guid("3e1be469-2608-454d-8f86-7fa0e6242929"), true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Patrick", "Mansour", "5gPhSOtYNknJrdkL8CkXR+n4X1Cw8r8Eryut84Ugyn4=", "key", "yMQxyBY/bNL1STLI/6VTQA==", "2DWYCISPHOCQHELY7VU25NE4VPDS5SQP", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "patrick" });
+                values: new object[] { new Guid("38d82377-b3d6-4145-b273-c136e065f57e"), true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Kyle", "Orciuch", "pt5uYBTPlBOB0FPkdUADV+EXZa0NGVfpLLV1nz12QTY=", "key", "f1TMfCrv5mqRvgesXJxZDA==", "XBFPGKVHXGAC2AEHUOX6TW2VVCFT5WPZ", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "kyle" });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Active", "CreatedOn", "DeletedOn", "FirstName", "LastName", "Password", "PublicKey", "Salt", "TwoFactorKey", "UpdatedOn", "Username" },
-                values: new object[] { new Guid("4f169ea5-e573-4507-a62a-b74e61b8352c"), true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Marcus", "Orciuch", "LHy2L5PJ3CQKfPJInHesZDF3A46DzJ9kcIAdKh4LJps=", "key", "sllNIW/h0hpFVYUCSANGIQ==", "7NNMK5OAHEAWQRVNVH6LUNZEWUUEZZGZ", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "marcus" });
+                values: new object[] { new Guid("63a43564-4c33-409d-a356-d75539368e98"), true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Marcus", "Orciuch", "eLGL40Qg6iUeWes+myszBd2PffhxlUm/AabyPUU+bY0=", "key", "HecjrZFEgdYjbRqnBUfXyg==", "XV2XSYXNWLTN75I7RYYOPHWRCJE3AYDY", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "marcus" });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Active", "CreatedOn", "DeletedOn", "FirstName", "LastName", "Password", "PublicKey", "Salt", "TwoFactorKey", "UpdatedOn", "Username" },
-                values: new object[] { new Guid("ad194377-d21e-46ec-a142-80a8e4236cf7"), true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Kyle", "Orciuch", "c1bCSyyfCBrncjHd21bR4yDB/t4gKTd+1Vxs76+bdOs=", "key", "JWYpy9YEzRpqVLYl6oVesw==", "KC4OJ4AX6UGDRV7UISSWQ3GLCSTYHKIX", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "kyle" });
+                values: new object[] { new Guid("70c6700f-f48d-4621-bc1e-b6b2d7429381"), true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Patrick", "Mansour", "8RDm00xtXA0fJn7bvhpyjoDftXQzlaWifReqNGg/Lak=", "key", "l16coAX0dhAITQOhJcne3A==", "OUB26D5PPSKOPW6RFRKM2MHTETI2WW76", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "patrick" });
 
             migrationBuilder.InsertData(
                 table: "Messages",
                 columns: new[] { "Id", "CreatedOn", "DeletedOn", "MessageKey", "MessagePayload", "ReceiverId", "SenderCopyKey", "SenderCopyPayload", "SenderId", "UpdatedOn" },
-                values: new object[] { new Guid("19dabd46-f88e-4dbf-a692-59985487c8d5"), new DateTime(2021, 12, 27, 21, 7, 55, 304, DateTimeKind.Utc).AddTicks(5310), null, "messageKey", "I am doing great! Hbu?", new Guid("3e1be469-2608-454d-8f86-7fa0e6242929"), "senderKey", "I am doing great! Hbu?", new Guid("4f169ea5-e573-4507-a62a-b74e61b8352c"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+                values: new object[] { new Guid("18ee49f3-f3d9-4b72-8114-61b95b513135"), new DateTime(2021, 12, 30, 19, 24, 25, 239, DateTimeKind.Utc).AddTicks(350), null, "messageKey", "Great as well!", new Guid("38d82377-b3d6-4145-b273-c136e065f57e"), "senderKey", "Great as well!", new Guid("63a43564-4c33-409d-a356-d75539368e98"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
 
             migrationBuilder.InsertData(
                 table: "Messages",
                 columns: new[] { "Id", "CreatedOn", "DeletedOn", "MessageKey", "MessagePayload", "ReceiverId", "SenderCopyKey", "SenderCopyPayload", "SenderId", "UpdatedOn" },
-                values: new object[] { new Guid("514a087c-2c5c-4273-852d-b9647cff6c88"), new DateTime(2021, 12, 27, 21, 5, 55, 304, DateTimeKind.Utc).AddTicks(5300), null, "messageKey", "I am doing great! Hbu?", new Guid("4f169ea5-e573-4507-a62a-b74e61b8352c"), "senderKey", "I am doing great! Hbu?", new Guid("ad194377-d21e-46ec-a142-80a8e4236cf7"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+                values: new object[] { new Guid("741022a5-ab14-48ab-ad81-50b4eeaf8b82"), new DateTime(2021, 12, 30, 19, 23, 25, 239, DateTimeKind.Utc).AddTicks(350), null, "messageKey", "I am doing great! Hbu?", new Guid("63a43564-4c33-409d-a356-d75539368e98"), "senderKey", "I am doing great! Hbu?", new Guid("38d82377-b3d6-4145-b273-c136e065f57e"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
 
             migrationBuilder.InsertData(
                 table: "Messages",
                 columns: new[] { "Id", "CreatedOn", "DeletedOn", "MessageKey", "MessagePayload", "ReceiverId", "SenderCopyKey", "SenderCopyPayload", "SenderId", "UpdatedOn" },
-                values: new object[] { new Guid("9f020a88-1a0c-497e-93b0-49f49e1c55c2"), new DateTime(2021, 12, 27, 21, 9, 55, 304, DateTimeKind.Utc).AddTicks(5320), null, "messageKey", "Great as well!", new Guid("4f169ea5-e573-4507-a62a-b74e61b8352c"), "senderKey", "Great as well!", new Guid("3e1be469-2608-454d-8f86-7fa0e6242929"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+                values: new object[] { new Guid("84f58382-cb2c-4d96-8670-fa3cd1232ce1"), new DateTime(2021, 12, 30, 19, 23, 25, 239, DateTimeKind.Utc).AddTicks(360), null, "messageKey", "Hi marcus, how are you doing?", new Guid("63a43564-4c33-409d-a356-d75539368e98"), "senderKey", "Hi kyle, how are you doing?", new Guid("70c6700f-f48d-4621-bc1e-b6b2d7429381"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
 
             migrationBuilder.InsertData(
                 table: "Messages",
                 columns: new[] { "Id", "CreatedOn", "DeletedOn", "MessageKey", "MessagePayload", "ReceiverId", "SenderCopyKey", "SenderCopyPayload", "SenderId", "UpdatedOn" },
-                values: new object[] { new Guid("a68cd8b3-de5c-4687-b775-e4bffbd4d5a8"), new DateTime(2021, 12, 27, 21, 5, 55, 304, DateTimeKind.Utc).AddTicks(5310), null, "messageKey", "Hi marcus, how are you doing?", new Guid("4f169ea5-e573-4507-a62a-b74e61b8352c"), "senderKey", "Hi kyle, how are you doing?", new Guid("3e1be469-2608-454d-8f86-7fa0e6242929"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+                values: new object[] { new Guid("8d89a700-e7d8-4097-8cbd-20ae7277c222"), new DateTime(2021, 12, 30, 19, 27, 25, 239, DateTimeKind.Utc).AddTicks(370), null, "messageKey", "Great as well!", new Guid("63a43564-4c33-409d-a356-d75539368e98"), "senderKey", "Great as well!", new Guid("70c6700f-f48d-4621-bc1e-b6b2d7429381"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
 
             migrationBuilder.InsertData(
                 table: "Messages",
                 columns: new[] { "Id", "CreatedOn", "DeletedOn", "MessageKey", "MessagePayload", "ReceiverId", "SenderCopyKey", "SenderCopyPayload", "SenderId", "UpdatedOn" },
-                values: new object[] { new Guid("e4462d86-bf11-4ae6-b586-c5ad928664bc"), new DateTime(2021, 12, 27, 21, 6, 55, 304, DateTimeKind.Utc).AddTicks(5310), null, "messageKey", "Great as well!", new Guid("ad194377-d21e-46ec-a142-80a8e4236cf7"), "senderKey", "Great as well!", new Guid("4f169ea5-e573-4507-a62a-b74e61b8352c"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+                values: new object[] { new Guid("bbe988ee-d420-4085-8cb8-92046bf8733a"), new DateTime(2021, 12, 30, 19, 22, 25, 239, DateTimeKind.Utc).AddTicks(340), null, "messageKey", "Hi kyle, how are you doing?", new Guid("38d82377-b3d6-4145-b273-c136e065f57e"), "senderKey", "Hi kyle, how are you doing?", new Guid("63a43564-4c33-409d-a356-d75539368e98"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
 
             migrationBuilder.InsertData(
                 table: "Messages",
                 columns: new[] { "Id", "CreatedOn", "DeletedOn", "MessageKey", "MessagePayload", "ReceiverId", "SenderCopyKey", "SenderCopyPayload", "SenderId", "UpdatedOn" },
-                values: new object[] { new Guid("f6c755f3-51e7-48dd-9b3a-c173b618bab4"), new DateTime(2021, 12, 27, 21, 4, 55, 304, DateTimeKind.Utc).AddTicks(5290), null, "messageKey", "Hi kyle, how are you doing?", new Guid("ad194377-d21e-46ec-a142-80a8e4236cf7"), "senderKey", "Hi kyle, how are you doing?", new Guid("4f169ea5-e573-4507-a62a-b74e61b8352c"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+                values: new object[] { new Guid("fbf4a654-5822-4c14-a733-858072f26d99"), new DateTime(2021, 12, 30, 19, 25, 25, 239, DateTimeKind.Utc).AddTicks(360), null, "messageKey", "I am doing great! Hbu?", new Guid("70c6700f-f48d-4621-bc1e-b6b2d7429381"), "senderKey", "I am doing great! Hbu?", new Guid("63a43564-4c33-409d-a356-d75539368e98"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AuthTokens_ReplacedByTokenId",

@@ -25,4 +25,7 @@ public class User : BaseEntity
     // Token Relationship
     [JsonIgnore]
     public List<AuthToken> Tokens { get; set; }
+    // Message Relationship
+    public List<Message> MessagesSent { get; set; }
+    public List<Message> MessagesReceived { get; set; }
 }

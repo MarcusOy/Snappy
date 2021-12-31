@@ -1,6 +1,8 @@
+using System.ComponentModel.DataAnnotations;
 using System.Threading;
 using HotChocolate.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using Snappy.API.Helpers;
 using Snappy.API.Models;
 using Snappy.API.Services;
 
@@ -12,12 +14,12 @@ namespace Snappy.API.GraphQL.Mutations
     {
         [Authorize]
         public async Task<Message> SendMessage(
-            Message message,
+            SendMessageRequest request,
             Guid sendToUserId,
             [Service] IMessageService messageService)
         {
-            var m = await messageService.SendAsync(message, sendToUserId);
-            return m;
+            var message = new SimpleObjectMapper().Cast<Message>(request);
+            return await messageService.SendAsync(message, sendToUserId);
         }
         [Authorize]
         public async Task<Message> DeleteAllMessages(
@@ -46,5 +48,17 @@ namespace Snappy.API.GraphQL.Mutations
 
             // return clips;
         }
+    }
+
+    public class SendMessageRequest
+    {
+        [Required]
+        public string MessageKey { get; set; }
+        [Required]
+        public string MessagePayload { get; set; }
+        [Required]
+        public string SenderCopyKey { get; set; }
+        [Required]
+        public string SenderCopyPayload { get; set; }
     }
 }
