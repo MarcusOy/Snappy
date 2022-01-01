@@ -28,10 +28,10 @@ import CurrentUser from "./CurrentUser";
 import { SnappyStore } from "../data/DataStore";
 
 const Header = () => {
-  const { contacts, selectedContact } = SnappyStore.useState();
+  const { contacts, selectedContactId } = SnappyStore.useState();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const c = contacts.find((c) => c.id == selectedContact) ?? {
+  const c = contacts.find((c) => c.id == selectedContactId) ?? {
     name: "invalid",
     status: "offline",
   };

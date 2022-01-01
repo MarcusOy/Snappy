@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Alert,
   AlertDescription,
@@ -10,13 +10,15 @@ import {
   HStack,
   Stack,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import Form from "../components/Form";
 import FormTextBox from "../components/FormTextBox";
-import useAxios from "axios-hooks";
-import IdentityService from "../data/IdentityService";
+import IdentityService from "../data/services/IdentityService";
 import LoginIdentity from "../components/LoginIdentity";
-
+import { AUTHENTICATE } from "../data/apollo/Mutations";
+import ServerService from "../data/services/ServerService";
+import { ApolloClient, InMemoryCache, useMutation } from "@apollo/client";
 interface FormFields {
   identity: string;
   password: string;
@@ -25,31 +27,53 @@ interface FormFields {
 }
 
 const LoginPage = () => {
-  const [{ loading, error }, doLogin] = useAxios({}, { manual: true });
+  const [authenticate, { loading, error }] = useMutation(AUTHENTICATE);
+  const [isShowingTwoFactor, setIsShowingTwoFactor] = useState(false);
+  const toast = useToast();
   const onSubmit = (data: FormFields) => {
     let [username, server] = data.identity.split("@");
 
-    doLogin({
-      url: `http://${server}/api/login/`,
-      method: "POST",
-      data: {
-        user_name: username,
-        password: data.password,
-      },
-    })
-      .then((r) => {
-        IdentityService.authenticate(
-          username,
-          server,
-          r.data.access,
-          r.data.refresh
-        );
+    ServerService.setServer(server)
+      .then(async (c) => {
+        authenticate({
+          variables: {
+            username: username,
+            password: data.password,
+            code: data.code ?? "",
+          },
+        })
+          .then((r) => {
+            IdentityService.authenticate(
+              username,
+              r.data.authenticate.authToken,
+              r.data.authenticate.refreshToken
+            );
+          })
+          .catch((r: any) => {
+            console.log(r);
+            console.log(JSON.stringify(r));
+            if (
+              r.graphQLErrors[0].extensions &&
+              r.graphQLErrors[0].extensions.code &&
+              r.graphQLErrors[0].extensions.code == "2FA_CHALLENGE"
+            )
+              setIsShowingTwoFactor(true);
+          });
       })
       .catch((e) => {
-        console.log(e);
+        console.log({ e });
+        toast({
+          title: "Server unreachable.",
+          description: "The server included in your identity is unreachable.",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
       });
   };
-  const onError = (errors: any, e: any) => {};
+  const onError = (errors: any, e: any) => {
+    console.log(errors);
+  };
 
   const storedIdentities = [
     {
@@ -114,8 +138,10 @@ const LoginPage = () => {
           {error && (
             <Alert status="error">
               <AlertIcon />
-              <AlertTitle mr={2}>Unable to log in.</AlertTitle>
-              <AlertDescription>{error.message}</AlertDescription>
+              <Stack spacing={0}>
+                <AlertTitle mr={2}>Unable to log in.</AlertTitle>
+                <AlertDescription>{error.message}</AlertDescription>
+              </Stack>
             </Alert>
           )}
           <Text color="gray.700" fontSize="sm">
@@ -126,7 +152,7 @@ const LoginPage = () => {
             <Stack spacing="2">
               <FormTextBox
                 name="identity"
-                defaultValue="marcus@127.0.0.1:8000"
+                defaultValue="marcus@localhost:7228"
                 inputProps={{ placeholder: "username@server.com:port" }}
               />
               <FormTextBox

@@ -5,7 +5,7 @@ import Header from "../components/Header";
 import CurrentUser from "../components/CurrentUser";
 import { SnappyStore } from "../data/DataStore";
 import Message, { IMessage } from "../components/Message";
-import CryptoService from "../data/CryptoService";
+import CryptoService from "../data/services/CryptoService";
 import useAxios from "axios-hooks";
 
 // function groupBy(objectArray: any, property: string) {

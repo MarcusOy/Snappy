@@ -1,19 +1,19 @@
+import { IServer } from "./services/ServerService";
 import { Store } from "pullstate";
 import { IChatContact } from "../components/ChatContact";
 import { IMessage } from "../components/Message";
 
 export interface ISnappyStore {
-  identity: IUserIdentity;
+  connection: IServer;
+  identity: IIdentity;
   contacts: IChatContact[];
-  selectedContact: string;
+  selectedContactId: string;
 }
 
-export interface IUserIdentity {
+export interface IIdentity {
   username?: string;
-  server?: string;
-  accessKey?: string;
-  refreshKey?: string;
-  messages?: IMessage;
+  accessToken?: string;
+  refreshToken?: string;
 }
 
 export const sampleContacts: IChatContact[] = [
@@ -50,9 +50,10 @@ export const sampleContacts: IChatContact[] = [
 ];
 
 const initialState: ISnappyStore = {
+  connection: {},
   identity: {},
   contacts: sampleContacts,
-  selectedContact: "f",
+  selectedContactId: "f",
 };
 
 export const SnappyStore = new Store<ISnappyStore>(initialState);

@@ -1,4 +1,4 @@
-import { SnappyStore } from "./DataStore";
+import { SnappyStore } from "../DataStore";
 class CryptoService {
   static async generateKeyPair() {
     let keyPair = await window.crypto.subtle.generateKey(

@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/popover";
 import { Button, ButtonGroup, Text } from "@chakra-ui/react";
 import React from "react";
-import IdentityService from "../data/IdentityService";
+import IdentityService from "../data/services/IdentityService";
 
 const LogoutButton = () => {
   const [isOpen, setIsOpen] = React.useState(false);

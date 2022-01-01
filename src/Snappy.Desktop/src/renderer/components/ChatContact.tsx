@@ -1,7 +1,7 @@
 import React from "react";
 import { Avatar, AvatarBadge, Box, Stack, Textarea } from "@chakra-ui/react";
 import { SnappyStore } from "../data/DataStore";
-import ContactService from "../data/ContactService";
+import ContactService from "../data/services/ContactService";
 
 export interface IChatContact {
   id: string;
@@ -11,8 +11,8 @@ export interface IChatContact {
 }
 
 const ChatContact = (c: IChatContact) => {
-  const { selectedContact } = SnappyStore.useState();
-  const isSelected = selectedContact == c.id;
+  const { selectedContactId } = SnappyStore.useState();
+  const isSelected = selectedContactId == c.id;
 
   return (
     <Box

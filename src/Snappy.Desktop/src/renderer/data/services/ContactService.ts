@@ -1,8 +1,8 @@
-import { SnappyStore } from "./DataStore";
+import { SnappyStore } from "../DataStore";
 class ContactService {
   static switchToContact(id: string) {
     SnappyStore.update((s) => {
-      s.selectedContact = id;
+      s.selectedContactId = id;
     });
   }
 }
