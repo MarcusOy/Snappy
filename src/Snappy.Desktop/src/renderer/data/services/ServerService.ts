@@ -55,7 +55,7 @@ class ServerService {
 
   static store() {
     const { connection } = SnappyStore.getRawState();
-    PersistenceService.setSecured("identity", JSON.stringify(connection));
+    PersistenceService.setSecured("connection", JSON.stringify(connection));
     console.log("Storing connection state... ", { connection });
   }
 }

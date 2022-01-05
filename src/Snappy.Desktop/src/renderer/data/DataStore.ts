@@ -1,12 +1,14 @@
 import { IServer } from "./services/ServerService";
 import { Store } from "pullstate";
-import { IChatContact } from "../components/ChatContact";
+import { IConversation } from "../components/Conversation";
 import { IMessage } from "../components/Message";
+import { IUser } from "../components/CurrentUser";
 
 export interface ISnappyStore {
   connection: IServer;
   identity: IIdentity;
-  contacts: IChatContact[];
+  currentUser: IUser;
+  conversations: IConversation[];
   selectedContactId: string;
 }
 
@@ -16,44 +18,20 @@ export interface IIdentity {
   refreshToken?: string;
 }
 
-export const sampleContacts: IChatContact[] = [
-  {
-    id: "asdf",
-    name: "Marcus Orciuch",
-    status: "online",
-    lastMessage: "Hey, what's up?",
-  },
-  {
-    id: "asf",
-    name: "Someone cute",
-    status: "offline",
-    lastMessage: "Go out with me pleasepleasepleasepleasepleaseplease.",
-  },
-  {
-    id: "a",
-    name: "Annoying person",
-    status: "away",
-    lastMessage: "K",
-  },
-  {
-    id: "b",
-    name: "Kyle Orciuch",
-    status: "doNotDisturb",
-    lastMessage: "Hey, what's up?",
-  },
-  {
-    id: "f",
-    name: "Patrick Mansour",
-    status: "online",
-    lastMessage: "This is a message sent by the other person to you.",
-  },
-];
-
 const initialState: ISnappyStore = {
   connection: {},
   identity: {},
-  contacts: sampleContacts,
-  selectedContactId: "f",
+  currentUser: {
+    id: "invalid",
+    username: "invalidUser",
+    firstName: "invalid",
+    lastName: "user",
+    publicKey: "no key",
+    createdOn: "01/01/2001",
+    status: "offline",
+  },
+  conversations: [],
+  selectedContactId: "",
 };
 
 export const SnappyStore = new Store<ISnappyStore>(initialState);

@@ -18,12 +18,13 @@ public class User : BaseEntity
     public string Salt { get; set; }
     // [Required] // TODO: reactivate this when encryption is implemented
     public string PublicKey { get; set; }
+    [JsonIgnore, GraphQLIgnore]
     public string TwoFactorKey { get; set; }
     [Required]
     public Boolean Active { get; set; }
 
     // Token Relationship
-    [JsonIgnore]
+    [JsonIgnore, GraphQLIgnore]
     public List<AuthToken> Tokens { get; set; }
     // Message Relationship
     public List<Message> MessagesSent { get; set; }

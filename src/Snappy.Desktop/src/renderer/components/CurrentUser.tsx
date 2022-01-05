@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Avatar,
   AvatarBadge,
@@ -13,6 +13,7 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Spinner,
   Tab,
   TabList,
   TabPanel,
@@ -22,14 +23,41 @@ import {
 } from "@chakra-ui/react";
 import { SettingsIcon } from "@chakra-ui/icons";
 import LogoutButton from "./LogoutButton";
+import { useQuery } from "@apollo/client";
+import { WHO_AM_I } from "../data/apollo/Queries";
+import { SnappyStore } from "../data/DataStore";
+
+export interface IUser {
+  id: string;
+  username: string;
+  firstName: string;
+  lastName: string;
+  publicKey: string;
+  createdOn: string;
+  status: string;
+}
 
 const CurrentUser = () => {
+  const { currentUser } = SnappyStore.useState();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { data, loading, error } = useQuery(WHO_AM_I);
+  useEffect(() => {
+    if (data) {
+      SnappyStore.update((s) => {
+        s.currentUser = data.whoAmI;
+      });
+    }
+  }, [data]);
+
+  if (loading || error) return <Spinner />;
 
   return (
     <>
       <Box p="5" bg="gray.200" display="flex" alignItems="center">
-        <Avatar name="Test User" size="sm">
+        <Avatar
+          name={currentUser.firstName + " " + currentUser.lastName}
+          size="sm"
+        >
           <AvatarBadge boxSize="1em" bg={"green.500"} />
         </Avatar>
         <Box
@@ -46,7 +74,7 @@ const CurrentUser = () => {
             lineHeight="tight"
             isTruncated
           >
-            Test User
+            {currentUser.firstName} {currentUser.lastName}
           </Box>
         </Box>
         <Box flexGrow={1} />

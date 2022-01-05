@@ -23,12 +23,12 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { ChevronDownIcon, HamburgerIcon } from "@chakra-ui/icons";
-import ChatContact from "./ChatContact";
+import ConversationList from "./ConversationList";
 import CurrentUser from "./CurrentUser";
 import { SnappyStore } from "../data/DataStore";
 
 const Header = () => {
-  const { contacts, selectedContactId } = SnappyStore.useState();
+  const { conversations: contacts, selectedContactId } = SnappyStore.useState();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const c = contacts.find((c) => c.id == selectedContactId) ?? {
@@ -101,8 +101,7 @@ const Header = () => {
               borderRightWidth="1px"
               onClick={() => onClose()}
             >
-              {contacts &&
-                contacts.map((c, i) => <ChatContact key={i} {...c} />)}
+              <ConversationList />
             </Stack>
           </DrawerBody>
           <DrawerFooter px={0} pb={0}>

@@ -1,10 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
-  Avatar,
-  AvatarBadge,
   Box,
-  Stack,
-  Textarea,
   Tooltip,
   useDisclosure,
   Modal,
@@ -20,20 +16,24 @@ import {
   Code,
 } from "@chakra-ui/react";
 import { SnappyStore } from "../data/DataStore";
+import { IUser } from "./CurrentUser";
 
 export interface IMessage {
   id: string;
-  sender: string;
-  receiver: string;
-  sentOn: Date;
-  content: string;
-  cipher: string;
-  senderCopyCipher: string;
+  messageKey: string;
+  messagePayload: string;
+  senderCopyKey: string;
+  senderCopyPayload: string;
+  createdOn: string;
+  senderId: string;
+  sender: IUser;
+  receiverId: string;
+  receiver: IUser;
 }
 
 const Message = (m: IMessage) => {
   const self = SnappyStore.useState((s) => s.identity.username);
-  const isFromYou = m.sender == self;
+  const isFromYou = m.sender.username == self;
 
   // Inspector modal
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -53,7 +53,7 @@ const Message = (m: IMessage) => {
           onClick={onOpen}
           cursor="pointer"
         >
-          {m.content}
+          {m.messagePayload}
         </Box>
       </Tooltip>
       <Modal
@@ -69,19 +69,19 @@ const Message = (m: IMessage) => {
           <ModalBody>
             <Heading size="xs">Sent on:</Heading>
             <Code mb="5" w="100%">
-              {m.sentOn.toLocaleString()}
+              {new Date(m.createdOn).toLocaleString()}
             </Code>
             <Heading size="xs">What you see (after decryption):</Heading>
             <Code mb="5" w="100%">
-              {m.content}
+              {m.messagePayload}
             </Code>
             <Heading size="xs">What the server sees (receiver's copy):</Heading>
             <Code mb="5" w="100%">
-              {m.cipher}
+              cipher
             </Code>
             <Heading size="xs">What the server sees (sender's copy):</Heading>
             <Code mb="5" w="100%">
-              {m.senderCopyCipher}
+              sender cipher
             </Code>
           </ModalBody>
           <ModalFooter>

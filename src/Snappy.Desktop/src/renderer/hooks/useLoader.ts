@@ -2,6 +2,7 @@ import { IServer } from "./../data/services/ServerService";
 import { SnappyStore, IIdentity } from "./../data/DataStore";
 import { useEffect, useState } from "react";
 import PersistenceService from "../data/services/PersistenceService";
+import { wait } from "../data/Helpers";
 
 const useLoader = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -23,7 +24,7 @@ const useLoader = () => {
           state.identity = i;
           state.connection = c;
         });
-
+        await wait(500);
         setIsLoading(false);
       })();
     } catch (e) {

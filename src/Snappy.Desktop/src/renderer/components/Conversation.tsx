@@ -1,16 +1,16 @@
 import React from "react";
 import { Avatar, AvatarBadge, Box, Stack, Textarea } from "@chakra-ui/react";
 import { SnappyStore } from "../data/DataStore";
-import ContactService from "../data/services/ContactService";
+import ConversationService from "../data/services/ConversationService";
 
-export interface IChatContact {
+export interface IConversation {
   id: string;
   name: string;
   status: "online" | "offline" | "away" | "doNotDisturb";
   lastMessage?: string;
 }
 
-const ChatContact = (c: IChatContact) => {
+const Conversation = (c: IConversation) => {
   const { selectedContactId } = SnappyStore.useState();
   const isSelected = selectedContactId == c.id;
 
@@ -23,11 +23,11 @@ const ChatContact = (c: IChatContact) => {
       }}
       key="i"
       w="64"
-      h="20"
+      minH="20"
       borderBottomWidth="1px"
-      overflow="hidden"
+      overflowX="hidden"
       bg={isSelected ? "gray.300" : undefined}
-      onClick={() => ContactService.switchToContact(c.id)}
+      onClick={() => ConversationService.switchTo(c.id)}
     >
       <Box p="3">
         <Box display="flex" alignItems="center">
@@ -73,4 +73,4 @@ const ChatContact = (c: IChatContact) => {
   );
 };
 
-export default ChatContact;
+export default Conversation;
