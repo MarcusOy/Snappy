@@ -2,13 +2,19 @@ import React, { useEffect } from "react";
 import Conversation, { IConversation } from "./Conversation";
 import { SnappyStore } from "../data/DataStore";
 import { GET_CONVERSATIONS } from "../data/apollo/Queries";
-import { useQuery } from "@apollo/client";
+import { useQuery, useSubscription } from "@apollo/client";
 import { Spinner, Stack } from "@chakra-ui/react";
 import ConversationService from "../data/services/ConversationService";
+import { ON_CONVERSATIONS_UPDATE } from "../data/apollo/Subscriptions";
 
 const ConversationList = () => {
   const { data, loading, error } = useQuery(GET_CONVERSATIONS);
+  const onConversationsUpdate = useSubscription(ON_CONVERSATIONS_UPDATE);
   const { conversations: contacts } = SnappyStore.useState();
+
+  useEffect(() => {
+    console.log(onConversationsUpdate.data);
+  }, [onConversationsUpdate.data]);
 
   useEffect(() => {
     if (data) {
@@ -16,9 +22,7 @@ const ConversationList = () => {
       data.conversations.nodes.map((n: any) => {
         c.push({
           id: n.otherUser.id,
-          name: n.otherUser.firstName
-            ? n.otherUser.firstName + " " + n.otherUser.lastName
-            : n.otherUser.username,
+          user: n.otherUser,
           status: "online",
           lastMessage: n.messagePayload,
         });

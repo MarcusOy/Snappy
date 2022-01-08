@@ -47,9 +47,23 @@ export const SEND_MESSAGE = gql`
   mutation ($request: SendMessageRequestInput, $toUserId: UUID!) {
     sendMessage(request: $request, sendToUserId: $toUserId) {
       id
-      senderId
-      receiverId
+      messageKey
+      messagePayload
+      senderCopyKey
+      senderCopyPayload
       createdOn
+      sender {
+        id
+        username
+        firstName
+        lastName
+      }
+      receiver {
+        id
+        username
+        firstName
+        lastName
+      }
     }
   }
 `;

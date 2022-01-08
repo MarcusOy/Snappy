@@ -28,13 +28,13 @@ import { WHO_AM_I } from "../data/apollo/Queries";
 import { SnappyStore } from "../data/DataStore";
 
 export interface IUser {
-  id: string;
-  username: string;
-  firstName: string;
-  lastName: string;
-  publicKey: string;
-  createdOn: string;
-  status: string;
+  id?: string;
+  username?: string;
+  firstName?: string;
+  lastName?: string;
+  publicKey?: string;
+  createdOn?: string;
+  status?: string;
 }
 
 const CurrentUser = () => {

@@ -1,4 +1,4 @@
-import { SnappyStore } from "./../data/DataStore";
+import { SnappyStore } from "../data/DataStore";
 import {
   ApolloClient,
   createHttpLink,
@@ -17,7 +17,7 @@ import { customFetch } from "../data/apollo/apolloCustomFetch";
 import ServerService from "../data/services/ServerService";
 import IdentityService from "../data/services/IdentityService";
 
-const useAudexApolloClient = (): ApolloClient<any> => {
+const useSnappyApolloClient = (): ApolloClient<any> => {
   const identityState = SnappyStore.useState((s) => s.identity);
   const connectionState = SnappyStore.useState((s) => s.connection);
   const [client, setClient] = useState<ApolloClient<any> | null>(null);
@@ -113,7 +113,7 @@ const useAudexApolloClient = (): ApolloClient<any> => {
 
     // Websocket Apollo link
     const wsLink = new WebSocketLink({
-      uri: `ws://${connectionState.hostName}/api/${connectionState.apiVersion}/graphql`,
+      uri: `wss://${connectionState.hostName}/api/${connectionState.apiVersion}/graphql`,
       options: {
         reconnect: true,
         lazy: true,
@@ -152,10 +152,10 @@ const useAudexApolloClient = (): ApolloClient<any> => {
   return (
     client ??
     new ApolloClient({
-      uri: "https://localhost:7228/api/v1/graphql",
+      uri: "https://localhost:1337/api/v1/graphql",
       cache: new InMemoryCache(),
     })
   );
 };
 
-export default useAudexApolloClient;
+export default useSnappyApolloClient;

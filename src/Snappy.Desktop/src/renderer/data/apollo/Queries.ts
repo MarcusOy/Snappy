@@ -18,7 +18,10 @@ export const GET_CONVERSATIONS = gql`
     conversations {
       nodes {
         id
+        messageKey
         messagePayload
+        senderCopyKey
+        senderCopyPayload
         createdOn
         otherUser {
           id

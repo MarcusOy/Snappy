@@ -8,11 +8,19 @@ import {
   PopoverHeader,
   PopoverTrigger,
 } from "@chakra-ui/popover";
-import { Button, ButtonGroup, Text } from "@chakra-ui/react";
+import {
+  Button,
+  ButtonGroup,
+  PlacementWithLogical,
+  Text,
+  useBreakpointValue,
+} from "@chakra-ui/react";
 import React from "react";
 import IdentityService from "../data/services/IdentityService";
 
 const LogoutButton = () => {
+  const placement: PlacementWithLogical =
+    useBreakpointValue(["top", "right"]) ?? "right";
   const [isOpen, setIsOpen] = React.useState(false);
   const open = () => setIsOpen(!isOpen);
   const close = () => setIsOpen(false);
@@ -22,7 +30,7 @@ const LogoutButton = () => {
     <Popover
       returnFocusOnClose={false}
       isOpen={isOpen}
-      placement="right"
+      placement={placement}
       onClose={close}
     >
       <PopoverTrigger>

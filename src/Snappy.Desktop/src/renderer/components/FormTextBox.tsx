@@ -13,7 +13,7 @@ export const FormTextBox = (p: IFormTextBoxProps) => {
     <Controller
       control={control}
       name={p.name}
-      defaultValue={p.defaultValue}
+      defaultValue={p.defaultValue ?? ""}
       render={({
         field: { onChange, onBlur, value, name, ref },
         fieldState: { invalid, isTouched, isDirty, error },

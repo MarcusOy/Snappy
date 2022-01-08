@@ -5,28 +5,44 @@ import LoginPage from "./pages/LoginPage";
 import { SnappyStore } from "./data/DataStore";
 import useLoader from "./hooks/useLoader";
 import { ApolloProvider } from "@apollo/client";
-import useAudexApolloClient from "./hooks/useAudexApolloClient";
+import useSnappyApolloClient from "./hooks/useSnappyApolloClient";
+
+const MainLoader = () => {
+  let { isLoading, isError } = useLoader();
+
+  let content = <Main />;
+  if (isLoading || isError)
+    content = (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Spinner label="Loading Snappy..." />{" "}
+      </div>
+    );
+
+  return <ChakraProvider>{content}</ChakraProvider>;
+};
 
 const Main = () => {
-  let { isLoading, isError } = useLoader();
-  let authState = SnappyStore.useState((s) => s.identity);
-  let isAuthenticated = authState.accessToken && authState.refreshToken;
+  const client = useSnappyApolloClient();
+  let state = SnappyStore.useState();
+  let isAuthenticated =
+    state.identity.accessToken && state.identity.refreshToken;
 
-  console.log({ authState });
+  console.log({ state });
   console.log({ isAuthenticated });
-
-  const client = useAudexApolloClient();
-
-  let content;
-  if (isLoading) content = <Spinner />;
-  if (isError) content = <Spinner label="Error occured. Restart the app." />;
-  content = isAuthenticated ? <ChatPage /> : <LoginPage />;
 
   return (
     <ApolloProvider client={client}>
-      <ChakraProvider>{content}</ChakraProvider>
+      <ChakraProvider>
+        {isAuthenticated ? <ChatPage /> : <LoginPage />}
+      </ChakraProvider>
     </ApolloProvider>
   );
 };
 
-export default Main;
+export default MainLoader;

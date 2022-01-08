@@ -25,6 +25,7 @@ const useLoader = () => {
           state.connection = c;
         });
         await wait(500);
+        console.log("Loader has finished.");
         setIsLoading(false);
       })();
     } catch (e) {

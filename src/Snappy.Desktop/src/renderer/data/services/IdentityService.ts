@@ -12,12 +12,11 @@ class IdentityService {
 
   static logOut() {
     SnappyStore.update((s) => {
-      s.identity.accessToken = undefined;
-      s.identity.refreshToken = undefined;
-
-      s.connection.apiVersion = undefined;
-      s.connection.downloadEndpoint = undefined;
-      s.connection.isOnline = undefined;
+      s.identity = {};
+      s.connection = {};
+      s.conversations = [];
+      s.selectedContactId = "";
+      s.currentUser = {};
     });
     this.store();
   }

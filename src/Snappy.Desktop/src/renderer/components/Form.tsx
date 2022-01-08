@@ -20,7 +20,6 @@ const Form = <T,>(p: IFormProps) => {
       <form onSubmit={methods.handleSubmit(p.onFormSubmit, p.onFormError)}>
         {p.children}
       </form>
-      {/* <DevTool control={methods.control} /> */}
     </FormProvider>
   );
 };

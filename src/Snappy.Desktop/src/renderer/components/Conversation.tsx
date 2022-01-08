@@ -2,10 +2,11 @@ import React from "react";
 import { Avatar, AvatarBadge, Box, Stack, Textarea } from "@chakra-ui/react";
 import { SnappyStore } from "../data/DataStore";
 import ConversationService from "../data/services/ConversationService";
+import { IUser } from "./CurrentUser";
 
 export interface IConversation {
   id: string;
-  name: string;
+  user: IUser;
   status: "online" | "offline" | "away" | "doNotDisturb";
   lastMessage?: string;
 }
@@ -13,6 +14,8 @@ export interface IConversation {
 const Conversation = (c: IConversation) => {
   const { selectedContactId } = SnappyStore.useState();
   const isSelected = selectedContactId == c.id;
+
+  let name = c.user.firstName + " " + c.user.lastName;
 
   return (
     <Box
@@ -31,7 +34,7 @@ const Conversation = (c: IConversation) => {
     >
       <Box p="3">
         <Box display="flex" alignItems="center">
-          <Avatar name={c.name} size="sm">
+          <Avatar name={name} size="sm">
             <AvatarBadge
               boxSize="1em"
               bg={
@@ -60,7 +63,7 @@ const Conversation = (c: IConversation) => {
               lineHeight="tight"
               isTruncated
             >
-              {c.name}
+              {name}
             </Box>
 
             <Box as="span" color="gray.600" fontSize="sm">

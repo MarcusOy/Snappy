@@ -14,6 +14,7 @@ import {
   HStack,
   Heading,
   Code,
+  Spinner,
 } from "@chakra-ui/react";
 import { SnappyStore } from "../data/DataStore";
 import { IUser } from "./CurrentUser";
@@ -53,6 +54,9 @@ const Message = (m: IMessage) => {
           onClick={onOpen}
           cursor="pointer"
         >
+          {new Date(m.createdOn) == new Date(0) && (
+            <Spinner mr="3" size={"xs"} />
+          )}
           {m.messagePayload}
         </Box>
       </Tooltip>
