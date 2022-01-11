@@ -143,6 +143,7 @@ const useSnappyApolloClient = (): ApolloClient<any> => {
 
     setClient(
       new ApolloClient({
+        connectToDevTools: true,
         link: from(links),
         cache: new InMemoryCache(),
       })

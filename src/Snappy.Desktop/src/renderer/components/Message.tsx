@@ -20,21 +20,23 @@ import { SnappyStore } from "../data/DataStore";
 import { IUser } from "./CurrentUser";
 
 export interface IMessage {
-  id: string;
-  messageKey: string;
-  messagePayload: string;
-  senderCopyKey: string;
-  senderCopyPayload: string;
-  createdOn: string;
-  senderId: string;
-  sender: IUser;
-  receiverId: string;
-  receiver: IUser;
+  id?: string;
+  messageKey?: string;
+  messagePayload?: string;
+  senderCopyKey?: string;
+  senderCopyPayload?: string;
+  createdOn?: string;
+  senderId?: string;
+  sender?: IUser;
+  receiverId?: string;
+  receiver?: IUser;
+  otherUserId?: string;
+  otherUser?: IUser;
 }
 
 const Message = (m: IMessage) => {
   const self = SnappyStore.useState((s) => s.identity.username);
-  const isFromYou = m.sender.username == self;
+  const isFromYou = m.sender!.username == self;
 
   // Inspector modal
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -54,7 +56,7 @@ const Message = (m: IMessage) => {
           onClick={onOpen}
           cursor="pointer"
         >
-          {new Date(m.createdOn) == new Date(0) && (
+          {new Date(m.createdOn!) == new Date(0) && (
             <Spinner mr="3" size={"xs"} />
           )}
           {m.messagePayload}
@@ -73,7 +75,7 @@ const Message = (m: IMessage) => {
           <ModalBody>
             <Heading size="xs">Sent on:</Heading>
             <Code mb="5" w="100%">
-              {new Date(m.createdOn).toLocaleString()}
+              {new Date(m.createdOn!).toLocaleString()}
             </Code>
             <Heading size="xs">What you see (after decryption):</Heading>
             <Code mb="5" w="100%">
