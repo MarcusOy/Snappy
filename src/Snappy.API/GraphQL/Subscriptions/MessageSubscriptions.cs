@@ -10,28 +10,24 @@ namespace Snappy.API.GraphQL.Subscriptions
     [ExtendObjectType("Subscription")]
     public class MessageSubscriptions
     {
-        [Subscribe(With = nameof(SubscribeOnConversationUpdateAsync)), Topic]
-        public async Task<List<Message>> OnConversationUpdate(
-            [EventMessage] Guid[] changedMessageIds,
-            [Service] IIdentityService idService,
+        [Subscribe(With = nameof(SubscribeOnConversationsUpdateAsync)), Topic]
+        public Message OnConversationsUpdate(
+            [EventMessage] Guid messageId,
+            [Service] IMessageService messageService,
             [Service] SnappyDBContext dbContext
         )
         {
-            return await dbContext.Messages
-                .Where(m => m.SenderId == idService.CurrentUser.Id
-                       || m.ReceiverId == idService.CurrentUser.Id)
-                .Where(s => changedMessageIds.Contains(s.Id))
-                .Include(s => s.Sender)
-                .Include(s => s.Receiver)
-                .ToListAsync();
+            return messageService.GetConversations()
+                .Where(m => m.Id == messageId)
+                .FirstOrDefault();
         }
         [Authorize]
-        public async ValueTask<ISourceStream<Guid[]>> SubscribeOnConversationUpdateAsync(
+        public async ValueTask<ISourceStream<Guid>> SubscribeOnConversationsUpdateAsync(
             [Service] ISubscriptionService subService,
             CancellationToken cancellationToken
         )
         {
-            return await subService.SubscribeAsync<Guid[]>(SubscriptionTopic.OnConversationUpdate, cancellationToken);
+            return await subService.SubscribeAsync<Guid>(SubscriptionTopic.OnConversationsUpdate, cancellationToken);
         }
     }
 }

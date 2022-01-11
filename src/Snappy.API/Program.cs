@@ -75,6 +75,7 @@ builder.Services.AddGraphQLServer()
         .AddTypeExtension<AuthQueries>()
         .AddTypeExtension<MessageQueries>()
     .AddSubscriptionType(d => d.Name("Subscription"))
+        .AddTypeExtension<AuthSubscriptions>()
         .AddTypeExtension<MessageSubscriptions>()
     .AddAuthorization()
     .AddSocketSessionInterceptor<SubscriptionAuthMiddleware>()
@@ -97,7 +98,7 @@ if (app.Environment.IsDevelopment())
     app.UseStatusCodePages();
 }
 
-// app.UseHttpsRedirection(); //TODO: Reenable this
+app.UseHttpsRedirection();
 app.UseWebSockets();
 app.UseRouting();
 

@@ -81,7 +81,6 @@ namespace Snappy.API.Services
     public enum SubscriptionTopic
     {
         OnConversationsUpdate,
-        OnConversationUpdate,
         OnUserUpdate
     }
 }

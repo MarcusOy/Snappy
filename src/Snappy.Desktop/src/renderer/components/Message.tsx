@@ -56,9 +56,8 @@ const Message = (m: IMessage) => {
           onClick={onOpen}
           cursor="pointer"
         >
-          {new Date(m.createdOn!) == new Date(0) && (
-            <Spinner mr="3" size={"xs"} />
-          )}
+          {new Date(m.createdOn!).getMilliseconds() ==
+            new Date(0).getMilliseconds() && <Spinner mr="3" size={"xs"} />}
           {m.messagePayload}
         </Box>
       </Tooltip>

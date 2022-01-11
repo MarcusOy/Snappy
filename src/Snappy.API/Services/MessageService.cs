@@ -98,7 +98,24 @@ namespace Snappy.API.Services
                          || m.ReceiverId == _idService.CurrentUser.Id && m.SenderId == userId)
                 .Include(m => m.Sender)
                 .Include(m => m.Receiver)
-                .OrderByDescending(m => m.CreatedOn);
+                .OrderByDescending(m => m.CreatedOn)
+                .Select(m => new Message
+                {
+                    Id = m.Id,
+                    MessageKey = m.MessageKey,
+                    MessagePayload = m.MessagePayload,
+                    SenderCopyKey = m.SenderCopyKey,
+                    SenderCopyPayload = m.SenderCopyPayload,
+                    SenderId = m.SenderId,
+                    Sender = m.Sender,
+                    ReceiverId = m.ReceiverId,
+                    Receiver = m.Receiver,
+                    CreatedOn = m.CreatedOn,
+                    OtherUserId = m.SenderId == _idService.CurrentUser.Id
+                            ? m.ReceiverId : m.SenderId,
+                    OtherUser = m.SenderId == _idService.CurrentUser.Id
+                            ? m.Receiver : m.Sender
+                });
         }
 
         public async Task<Message> SendAsync(Message message, Guid toUserId)
@@ -117,8 +134,8 @@ namespace Snappy.API.Services
             await _dbContext.Messages.AddAsync(message);
             await _dbContext.SaveChangesAsync();
 
-            await _subService.NotifyAsync(SubscriptionTopic.OnConversationUpdate, new Guid[] { message.Id });
-            await _subService.NotifyAsync(SubscriptionTopic.OnConversationUpdate, new Guid[] { message.Id }, toUser);
+            await _subService.NotifyAsync(SubscriptionTopic.OnConversationsUpdate, message.Id);
+            await _subService.NotifyAsync(SubscriptionTopic.OnConversationsUpdate, message.Id, toUser);
 
             return message;
         }

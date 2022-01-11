@@ -8,12 +8,13 @@ import ConversationService from "../data/services/ConversationService";
 import { ON_CONVERSATIONS_UPDATE } from "../data/apollo/Subscriptions";
 
 const ConversationList = () => {
-  const { data, loading, error } = useQuery(GET_CONVERSATIONS);
+  const { data, loading, error, refetch } = useQuery(GET_CONVERSATIONS);
   const onConversationsUpdate = useSubscription(ON_CONVERSATIONS_UPDATE);
   const { conversations: contacts } = SnappyStore.useState();
 
   useEffect(() => {
     console.log(onConversationsUpdate.data);
+    refetch();
   }, [onConversationsUpdate.data]);
 
   useEffect(() => {
