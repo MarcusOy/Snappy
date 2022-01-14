@@ -92,9 +92,9 @@ const CurrentUser = () => {
           <ModalBody>
             <Tabs>
               <TabList>
-                <Tab>One</Tab>
-                <Tab>Two</Tab>
-                <Tab>Three</Tab>
+                <Tab>Profile</Tab>
+                <Tab>Security</Tab>
+                <Tab>Blocked List</Tab>
               </TabList>
 
               <TabPanels>

@@ -1,17 +1,24 @@
 import React, { useState } from "react";
-import { Textarea } from "@chakra-ui/react";
+import { Textarea, useToast } from "@chakra-ui/react";
 import { SnappyStore } from "../data/DataStore";
 import { GET_CONVERSATION } from "../data/apollo/Queries";
 import { useMutation } from "@apollo/client";
 import { SEND_MESSAGE } from "../data/apollo/Mutations";
 import { v4 as uuidv4 } from "uuid";
+import { IUser } from "./CurrentUser";
 
-const MessageSender = () => {
+interface IMessageSenderProps {
+  onMessageSent?: () => void;
+  toUser?: IUser;
+}
+
+const MessageSender = (p: IMessageSenderProps) => {
   const { selectedContactId, currentUser, conversations } =
     SnappyStore.useState();
   // Add message to conversation on enter
   const [content, setContent] = useState("");
-  const [sendMessage, { loading, error }] = useMutation(SEND_MESSAGE);
+  const [sendMessage] = useMutation(SEND_MESSAGE);
+  const toast = useToast();
   const handleKeyPressSent = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter") {
       if (content != "") handleMessageSent();
@@ -20,16 +27,19 @@ const MessageSender = () => {
     }
   };
   const handleMessageSent = async () => {
-    var request = {
+    let request = {
       messageKey: "new key",
       messagePayload: content,
       senderCopyKey: "sender key",
       senderCopyPayload: content,
     };
+    let toUser =
+      p.toUser ??
+      conversations.filter((c) => c.id == selectedContactId)[0].user;
     sendMessage({
       variables: {
         request,
-        toUserId: selectedContactId,
+        toUserId: toUser.id,
       },
       optimisticResponse: {
         __typename: "Mutation",
@@ -38,11 +48,9 @@ const MessageSender = () => {
           id: uuidv4(),
           senderId: currentUser.id,
           sender: currentUser,
-          receiverId: selectedContactId,
-          receiver: conversations.filter((c) => c.id == selectedContactId)[0]
-            .user,
-          otherUser: conversations.filter((c) => c.id == selectedContactId)[0]
-            .user,
+          receiverId: toUser.id,
+          receiver: toUser,
+          otherUser: toUser,
           createdOn: new Date(0).toISOString(),
           ...request,
         },
@@ -51,7 +59,7 @@ const MessageSender = () => {
         cache.updateQuery(
           {
             query: GET_CONVERSATION,
-            variables: { userId: selectedContactId },
+            variables: { userId: toUser.id },
           },
           (data) => ({
             ...data,
@@ -61,32 +69,25 @@ const MessageSender = () => {
             },
           })
         );
-        // // Get the data from GraphQL cache
-        // const data: any = proxy.readQuery({
-        //   query: GET_CONVERSATION,
-        //   variables: { userId: selectedContactId },
-        // });
-        // // Update the cache with the query
-        // proxy.writeQuery({
-        //   query: GET_CONVERSATION,
-        //   variables: {
-        //     userId: selectedContactId,
-        //   },
-        //   data: {
-        //     ...data,
-        //     conversation: {
-        //       __typename: "ConversationConnection",
-        //       nodes: [sendMessage, ...data.conversation.nodes],
-        //     },
-        //   },
-        // });
       },
-    }).catch((err) => err);
+    })
+      .then(() => {
+        if (p.onMessageSent) p.onMessageSent();
+      })
+      .catch((err) =>
+        toast({
+          title: "Message delivery error.",
+          description: err.message,
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        })
+      );
     setContent("");
   };
   return (
     <Textarea
-      placeholder="Write your next message here..."
+      placeholder="Write your next message here, then press Enter..."
       resize="none"
       value={content}
       onChange={(e) => {

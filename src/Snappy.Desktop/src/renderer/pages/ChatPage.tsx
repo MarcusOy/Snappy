@@ -23,7 +23,6 @@ const ChatPage = () => {
   }, [selectedContactId]);
 
   let messages: IMessage[] = data?.conversation?.nodes || [];
-  console.log({ messages, data, loading, error });
 
   return (
     <Stack spacing={0}>

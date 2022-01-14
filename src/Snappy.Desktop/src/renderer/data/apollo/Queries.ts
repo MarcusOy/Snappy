@@ -61,3 +61,14 @@ export const GET_CONVERSATION = gql`
     }
   }
 `;
+
+export const GET_USER_BY_USERNAME = gql`
+  query ($username: String!) {
+    userByUsername(username: $username) {
+      id
+      username
+      firstName
+      lastName
+    }
+  }
+`;

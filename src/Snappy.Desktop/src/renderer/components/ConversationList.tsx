@@ -6,6 +6,7 @@ import { useQuery, useSubscription } from "@apollo/client";
 import { Spinner, Stack } from "@chakra-ui/react";
 import ConversationService from "../data/services/ConversationService";
 import { ON_CONVERSATIONS_UPDATE } from "../data/apollo/Subscriptions";
+import StartConversation from "./StartConversation";
 
 const ConversationList = () => {
   const { data, loading, error, refetch } = useQuery(GET_CONVERSATIONS);
@@ -35,8 +36,9 @@ const ConversationList = () => {
   if (loading) return <Spinner />;
 
   return (
-    <Stack flex="1" overflowY="scroll">
+    <Stack flex="1" overflowY="scroll" overflowX="hidden">
       {contacts && contacts.map((c, i) => <Conversation key={i} {...c} />)}
+      <StartConversation />
     </Stack>
   );
 };
